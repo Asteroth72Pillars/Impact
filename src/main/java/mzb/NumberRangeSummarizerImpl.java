@@ -21,13 +21,31 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer
         {
             try{
                 numbers.add(Integer.parseInt(part.trim()));
-            }catch(NumberFormatException)
+            }catch(NumberFormatException e)
             {
-                throw new IllegalArgumentException("Invalid input: " + part);
+                throw new IllegalArgumentException("Invalid input: " + part, e);
             }
         }
         numbers.sort(Integer::compareTo);
         return numbers;
     }
+
+    public void appendRange(StringBuilder result, int start, int end)
+    {
+        if(result.length() > 0)
+        {
+            result.append(", ");
+        }
+        if(start == end)
+        {
+            result.append(start);
+        } else if(end == start + 1)
+        {
+            result.append(start).append(", ").append(end);
+        }else{
+            result.append(start).append("-").append(end);
+        }
+    }
+
 
 }
